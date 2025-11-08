@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wind Turbine Protection & Performance (Streamlit stlite)</title>
+    <meta name="description" content="Simulation of wind turbine failure protection and performance analysis with ML, running via Streamlit on stlite." />
+    <style>
+      html, body, #root { height: 100%; margin: 0; }
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica Neue, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/stlite@0.74.0/dist/index.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      (async () => {
+        const code = await fetch("./app.py").then(r => r.text());
+        // Mount Streamlit app with Pyodide packages (pure WASM)
+        stlite.mount(code, document.getElementById("root"), {
+          pyodidePackages: ["numpy", "pandas"],
+        });
+      })();
+    </script>
+  </body>
+</html>
